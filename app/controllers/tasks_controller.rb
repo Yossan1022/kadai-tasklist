@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-     before_action :set_message, only: [:show, :edit, :update, :destroy]
+     before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
       @tasks = Task.all
   end
@@ -29,9 +29,8 @@ class TasksController < ApplicationController
   end
 
   def update
-      set_message
-      @task = Task.find(params[:id])
-
+      
+     
     if @task.update(task_params)
       flash[:success] = 'Task は正常に更新されました'
       redirect_to @task
@@ -51,8 +50,8 @@ class TasksController < ApplicationController
   
   private
   
-  def set_message
-    @task = Task.find(params[:id])
+  def set_task
+     @task = Task.find(params[:id])
   end
   
   def task_params
