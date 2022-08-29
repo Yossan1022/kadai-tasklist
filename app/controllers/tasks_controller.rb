@@ -11,8 +11,8 @@ def new
   @task = Task.new
 end
   def create
-    @tasklist = Task.new(tasklist_params)
-    if @tasklist.save
+    @task = Task.new(tasklist_params)
+    if @task.save
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
     else
