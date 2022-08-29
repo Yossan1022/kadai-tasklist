@@ -4,13 +4,8 @@ class TasksController < ApplicationController
 
 
 def index
- 
       @tasks = Task.all
 end
-
-
-
-
 
 def new
   @task = Task.new
@@ -23,7 +18,7 @@ end
     else
       
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
-      render 'tasks/index'
+      render 'tasks/new'
     end
   end
 
