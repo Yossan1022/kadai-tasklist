@@ -2,10 +2,10 @@ class TasksController < ApplicationController
   
   before_action :correct_user, only: [:destroy]
 
-
-def index
+ 
+ def index
       @tasks = Task.all
-end
+ end
 
 def new
   @task = Task.new
