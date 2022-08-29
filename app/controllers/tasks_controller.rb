@@ -6,8 +6,11 @@ class TasksController < ApplicationController
  def index
       @tasks = Task.all
  end
+ def edit
+   @task = Task.find(params[:id])
+ end
 def show
-  @task =  Task.find params(:id)
+  @task = Task.find(params[:id])
 end
 def new
   @task = Task.new
@@ -25,7 +28,8 @@ end
   end
 
   def destroy
-    @tasklist.destroy
+    @task = Task.find(params[:id])
+    @task.destroy
     flash[:success] = 'メッセージを削除しました。'
     redirect_back(fallback_location: root_path)
   end
