@@ -31,7 +31,7 @@ end
   private
 
   def tasklist_params
-    params.require(:task).permit(:content, :status)
+    params.require(:task).permit(:content, :status).merge(user_id: current_user.id)
   
   end
 end
