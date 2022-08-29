@@ -7,7 +7,7 @@ class TasksController < ApplicationController
       @tasks = Task.all
  end
 def show
-  @show = show
+  @task =  Task.find params(:id)
 end
 def new
   @task = Task.new
