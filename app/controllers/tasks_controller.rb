@@ -4,10 +4,11 @@ class TasksController < ApplicationController
 
 
 def index
-  if logged_in?
+ 
       @tasks = Task.all
-  end
 end
+
+
 
 
 
