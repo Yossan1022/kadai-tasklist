@@ -2,15 +2,28 @@ class TasksController < ApplicationController
   
   before_action :correct_user, only: [:destroy]
 
+
+def index
+  if logged_in?
+      @tasks = Task.all
+  end
+end
+
+
+
+def new
+  @task = Task.new
+end
   def create
-    @tasklist = current_user.tasklists.build(tasklist_params)
+    
+    @tasklist = Task.create
     if @tasklist.save
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
     else
-      @pagy, @tasklists = pagy(current_user.tasklists.order(id: :desc))
+      
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
-      render 'toppages/index'
+      render 'tasks/index'
     end
   end
 
@@ -24,12 +37,6 @@ class TasksController < ApplicationController
 
   def tasklist_params
     params.require(:tasklist).permit(:content)
-  end
-
-  def correct_user
-    @tasklist = current_user.tasklists.find_by(id: params[:id])
-    unless @tasklist
-      redirect_to root_url
-    end
+  
   end
 end
