@@ -1,8 +1,18 @@
 class TasksController < ApplicationController
   
-  before_action :correct_user, only: [:destroy]
+  before_action only: [:destroy]
 
- 
+ def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      flash[:success] = 'Task は正常に更新されました'
+      redirect_to @task
+    else
+      flash.now[:danger] = 'Message は更新されませんでした'
+      render :edit
+    end
+ end
  def index
       @tasks = Task.all
  end
@@ -16,7 +26,7 @@ def new
   @task = Task.new
 end
   def create
-    @task = Task.new(tasklist_params)
+    @task = Task.new(task_params)
     if @task.save
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
@@ -36,8 +46,8 @@ end
 
   private
 
-  def tasklist_params
-    params.require(:task).permit(:content, :status).merge(user_id: current_user.id)
+  def task_params
+    params.require(:task).permit(:content, :status)
   
   end
 end
