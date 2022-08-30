@@ -13,6 +13,7 @@ class TasksController < ApplicationController
       render :edit
     end
  end
+ 
  def index
       @tasks = Task.all
  end
@@ -20,10 +21,13 @@ class TasksController < ApplicationController
    @task = Task.find(params[:id])
  end
 def show
-  @task = Task.find(params[:id])
+  @tasks = Task.all
+   @task = Task.find(params[:id])
+  
 end
 def new
   @task = Task.new
+  
 end
   def create
     @task = Task.new(task_params)
@@ -38,16 +42,15 @@ end
   end
 
   def destroy
-    @task = Task.find(params[:id])
+     @task = Task.find(params[:id])
     @task.destroy
     flash[:success] = 'メッセージを削除しました。'
-    redirect_back(fallback_location: root_path)
+     redirect_to root_url
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:content, :status)
-  
+    params.require(:task).permit(:content, :status).merge(user_id:current_user.id)
   end
 end
