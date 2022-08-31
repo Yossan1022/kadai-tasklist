@@ -26,20 +26,21 @@ def show
    @task = Task.find(params[:id])
   
 end
-def current_user
-   @task = Task.find(params[:id])
-end
+
 def new
-  user = User.last
-  @task = user.tasks.build
+  user = User.first
+  user.tasks
+  task = user.tasks.build
+  task.save
+   @task = user.tasks.build
 end
+
   def create
-    @task = current_user.tasks.build(task_params)
+    @task = Task.new(task_params)
     if @task.save
       flash[:success] = 'タスクを投稿しました。'
       redirect_to root_url
     else
-      
       flash.now[:danger] = 'タスクの投稿に失敗しました。'
       render 'tasks/new'
     end
@@ -55,6 +56,6 @@ end
   private
 
   def task_params
-    params.require(:task).permit(:content, :status).merge(user_id:current_user.id)
+    params.require(:task).permit(:content, :status)
   end
 end
