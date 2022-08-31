@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
- 
+ def show
+  @user = User.find(params[:id])
+  redirect_to root_url
+ end
   def new
      @user = User.new
   end
