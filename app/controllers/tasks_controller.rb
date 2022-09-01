@@ -1,7 +1,5 @@
 class TasksController < ApplicationController
-   
-  before_action only: [:destroy]
-
+   before_action :require_user_logged_in, only: [:index,:show]
  def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
@@ -14,8 +12,12 @@ class TasksController < ApplicationController
  end
  
  def index
-     @tasks = Task.all
+    if logged_in?
+      @task = current_user.tasks.build  # form_with 用
+      @tasks = current_user.tasks.order(id: :desc)
+    end
  end
+end
  def edit
      @task = Task.find(params[:id])
    
@@ -30,8 +32,8 @@ def new
 end
 
 def create
-     user = User.last
-     @task = user.tasks.build(task_params)
+    user = User.last
+    @task = current_user.tasks.build(task_params)
   if @task.save
      flash[:success] = 'タスクを投稿しました。'
      redirect_to root_url
@@ -50,4 +52,3 @@ end
   def task_params
      params.require(:task).permit(:content, :status)
   end
-end
