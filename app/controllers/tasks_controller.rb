@@ -30,7 +30,6 @@ def new
      user = User.last
      @task = user.tasks.build
 end
-
 def create
     user = User.last
     @task = current_user.tasks.build(task_params)
@@ -39,7 +38,7 @@ def create
      redirect_to root_url
   else
      flash.now[:danger] = 'タスクの投稿に失敗しました。'
-     render '/tasks/new'
+     render :new
   end
 end
   def destroy

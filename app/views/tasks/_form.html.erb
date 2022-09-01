@@ -1,5 +1,5 @@
 <%= form_with(model: task) do |f| %>
-  <% if task.errors.any? %>
+  <% if task.error.any? %>
   
     <div id="error_explanation">
       <ul>
