@@ -27,7 +27,7 @@ end
 
 def new
      user = User.last
-     @task = user.tasks.build
+      @task = user.tasks.build
 end
 def create
     user = User.last
