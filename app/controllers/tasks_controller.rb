@@ -39,7 +39,7 @@ def create
      redirect_to root_url
   else
      flash.now[:danger] = 'タスクの投稿に失敗しました。'
-     render 'tasks/new'
+     render '/tasks/new'
   end
 end
   def destroy
