@@ -17,7 +17,6 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.order(id: :desc)
     end
  end
-end
  def edit
      @task = Task.find(params[:id])
    
@@ -33,13 +32,13 @@ end
 def create
     user = User.last
     @task = current_user.tasks.build(task_params)
-  if @task.save
+   if @task.save
      flash[:success] = 'タスクを投稿しました。'
      redirect_to root_url
-  else
+   else
      flash.now[:danger] = 'タスクの投稿に失敗しました。'
      render :new
-  end
+   end
 end
   def destroy
      @task = Task.find(params[:id])
@@ -51,3 +50,4 @@ end
   def task_params
      params.require(:task).permit(:content, :status)
   end
+end
