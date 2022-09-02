@@ -1,7 +1,8 @@
+<!--  new_message GET    /messages/new(.:format)がGETなのでこのファイルを作る-->
 <h1>タスク新規作成ページ</h1>
-
+<!-- render 'form' とすることで、_form.html.erb パーシャルを埋め込んでいます。-->
 <%= render 'form', task: @task %>
-
+<!-- task: @task はパーシャルに対して変数を渡しています。task という変数名で @task の値を渡しています。-->
 <%= link_to '一覧に戻る', tasks_path %>
 
 

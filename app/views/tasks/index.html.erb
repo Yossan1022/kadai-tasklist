@@ -1,11 +1,14 @@
-
+<!--messages GET /messages(.:format)messages#indexがGETなのでindex.html.erbファイルを作る  -->
 <h1>タスク一覧</h1>
 
 <ul>
   <% @tasks.each do |task| %>
+  <!-- task.contentやtask.statusによって、contentカラムやstatusカラムの値を表示しています。-->
+   <!--データベースのテーブルはカラム（縦）とレコード（横）で構成される -->
      <li><%= link_to task.id, task %> : <%= task.status %></li>
      <li><%= link_to task.id, task %> : <%= task.content %></li>
-     
+        <!--link_to 表示文字列, リンク先 という形で記述します。-->
+   <!--表示文字列 はtask.id つまりメッセージのid-->
   <% end %>
 </ul>
 
