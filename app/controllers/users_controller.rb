@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
    before_action :require_user_logged_in,only: [:index,:show,:edit,:update,:new]
- def require_user_logged_in
+def require_user_logged_in
   if @currect_user.id != params[:id].to_i
-    flash[:notice]="権限がありません"
     redirect_to root_url
   end
  end
@@ -11,7 +10,7 @@ class UsersController < ApplicationController
    redirect_to root_url
  end
  def new
-   @user = User.new
+  @currect_user.id = User.new
  end
  def create
    @user = User.new(user_params)
