@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
    before_action :require_user_logged_in,only: [:index,:show,:edit,:update,:new]
  def require_user_logged_in
-  if @current_user.id != params[:id].to_i
+  if @currect_user.id != params[:id].to_i
     flash[:notice]="権限がありません"
     redirect_to root_url
   end

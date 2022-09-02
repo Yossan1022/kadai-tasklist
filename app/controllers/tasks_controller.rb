@@ -1,6 +1,6 @@
 #routes.rb で設定したルーティングに対応したアクションをこのファイルに追加する
 class TasksController < ApplicationController
-   before_action :require_user_logged_in, only: [:index,:show,:new]
+   before_action :require_user_logged_in, only: [:index,:show,:new,:edit]
  def update
    @task = Task.find(params[:id])
   if @task.update(task_params)
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   end
  end
  def edit
-   @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
  end
 def show
   @task = Task.find(params[:id])
@@ -57,3 +57,9 @@ def task_params
 end
 end
 #セキュリティ対策として、Strong Parameterが必要
+def correct_user
+  @task = current_user.tasks.find_by(id: params[:id])
+  unless @task
+  redirect_to root_url
+  end
+end
