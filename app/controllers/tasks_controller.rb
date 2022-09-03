@@ -1,52 +1,52 @@
 #routes.rb で設定したルーティングに対応したアクションをこのファイルに追加する
 class TasksController < ApplicationController
-   before_action :require_user_logged_in, only: [:index,:show,:new,:edit]
+   　before_action :require_user_logged_in, only: [:index,:show,:new,:edit]
  def update
-   @task = Task.find(params[:id])
+   　@task = Task.find(params[:id])
   if @task.update(task_params)
-   flash[:success] = 'Task は正常に更新されました'
-   redirect_to @task
+     flash[:success] = 'Task は正常に更新されました'
+     redirect_to @task
   else
-   flash.now[:danger] = 'Task は更新されませんでした'
-   render :edit
+     flash.now[:danger] = 'Task は更新されませんでした'
+     render :edit
   end
  end
  def index
   if logged_in?
-   @task = current_user.tasks.build  # form_with 用
-   @tasks = current_user.tasks.order(id: :desc)
+    @task = current_user.tasks.build  # form_with 用
+    @tasks = current_user.tasks.order(id: :desc)
   end
  end
  def edit
     @task = Task.find(params[:id])
  end
 def show
-  @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
 end
 def new
-  user = User.last
-  @task = user.tasks.build
+    user = User.last
+    @task = user.tasks.build
 end
 def create
-  user = User.last
-  @task = current_user.tasks.build(task_params)
+    user = User.last
+    @task = current_user.tasks.build(task_params)
     #@taskの保存が成功したら
  if @task.save
        #flash[:success] によって保存が成功したことをお知らせする
-  flash[:success] = 'タスクを投稿しました。'
+    flash[:success] = 'タスクを投稿しました。'
      #redirect_to はリンク先を指定して強制的に飛ばすメソッド。リンク先はトップページ。
-  redirect_to root_url
+    redirect_to root_url
  else
-  flash.now[:danger] = 'タスクの投稿に失敗しました。'
+    flash.now[:danger] = 'タスクの投稿に失敗しました。'
      #render :new はtasks/new.html.erb を表示するということ
-  render :new
+    render :new
  end
 end
 def destroy
-  @task = Task.find(params[:id])
-  @task.destroy
-  flash[:success] = 'タスクを削除しました。' 
-  redirect_to root_url
+    @task = Task.find(params[:id])
+    @task.destroy
+    flash[:success] = 'タスクを削除しました。' 
+    redirect_to root_url
 end
   #privateはこのクラス内でのみ使用することを明示しています。def task_params は、アクションではなく単なる私用のメソッドとなります。
  private
@@ -58,8 +58,8 @@ end
 end
 #セキュリティ対策として、Strong Parameterが必要
 def correct_user
-  @task = current_user.tasks.find_by(id: params[:id])
-  unless @task
-  redirect_to root_url
-  end
+   @task = current_user.tasks.find_by(id: params[:id])
+   unless @task
+   redirect_to root_url
+   end
 end
