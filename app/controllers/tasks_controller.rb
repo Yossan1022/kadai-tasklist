@@ -3,7 +3,7 @@ class TasksController < ApplicationController
    before_action :require_user_logged_in
    before_action :correct_user, only: [:show,:edit,:update,:destroy]
  def update
-   @task = Task.find(params[:id])
+   
   if @task.update(task_params)
    flash[:success] = 'Task は正常に更新されました'
    redirect_to @task
@@ -21,7 +21,7 @@ def new
   @task = user.tasks.build
 end
 def create
-  user = User.last
+  user = User.new
   @task = current_user.tasks.build(task_params)
     #@taskの保存が成功したら
  if @task.save
@@ -36,7 +36,6 @@ def create
  end
 end
 def destroy
-  @task = Task.find(params[:id])
   @task.destroy
   flash[:success] = 'タスクを削除しました。' 
   redirect_to root_url
