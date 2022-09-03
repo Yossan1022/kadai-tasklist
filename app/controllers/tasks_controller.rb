@@ -1,6 +1,6 @@
 #routes.rb で設定したルーティングに対応したアクションをこのファイルに追加する
 class TasksController < ApplicationController
-   before_action :require_user_logged_in, only: [:index,:show,:new,:edit,:update,:create,:destroy]
+   before_action :require_user_logged_in
    before_action :correct_user, only: [:show,:edit,:update,:destroy]
  def update
    @task = Task.find(params[:id])
@@ -15,14 +15,9 @@ class TasksController < ApplicationController
  def index
    @tasks = current_user.tasks.order(id: :desc)
  end
- def edit
-    @task = Task.find(params[:id])
- end
-def show
-  @task = Task.find(params[:id])
-end
+
 def new
-  user = User.last
+  user = User.new
   @task = user.tasks.build
 end
 def create
